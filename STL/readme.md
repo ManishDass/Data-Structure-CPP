@@ -287,41 +287,50 @@ l.reverse();
 
 **Example Code**
 ```c++
-std::map<std::string, std::string> m;
+#include <bits/stdc++.h>
+using namespace std;
 
-//---------------------------------
-// General Operations
-//---------------------------------
+int main()
+{
 
-// Insert
-m.insert(std::pair<std::string, std::string>("key", "value"));
+    // Syntax - map<data type for Key : data type of malue> map name
+    map<int, string> m;
 
-// Access by key
-std::string value = m.at("key");
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-// Size
-unsigned int size = m.size();
+    // Insert
+    m[12] = "Manish Das";                     // index way
+    m.insert(pair<int, string>(2, "Pritam")); // second way
+    m.insert(make_pair(36, "jainendra"));     // best way
 
-// Iterate
-for(std::map<std::string, std::string>::iterator it = m.begin(); it != m.end(); it++) {
-    std::cout << *it << std::endl;
+    // access
+    string personA = m[12];
+    string personB = m.at(36);
+
+    // Size
+    int size = m.size();
+
+    //iterate natural order
+    for (map<int, string>::iterator i = m.begin(); i != m.end(); i++)
+    {
+        cout << (*i).first << ": " << (*i).second << endl;
+    }
+
+    //iterate reverse order 
+    for( map<int,string>::reverse_iterator i = m.rbegin(); i != m.rend(); i++)  
+    {  
+       cout << (*i).first << ": " << (*i).second << endl;  
+    }  
+
+    // delete head, index, tail
+    m.erase(36); // head
+
+    // clear
+    m.clear();
 }
 
-// Remove by key
-m.erase("key");
-
-// Clear
-m.clear();
-
-//---------------------------------
-// Container-Specific Operations
-//---------------------------------
-
-// Find if an element exists by key
-bool exists = (m.find("key") != m.end());
-
-// Count the number of elements with a certain key
-unsigned int count = m.count("key");
 ```
 -------------------------------------------------------
 ### 1.6 Set `std::set`
@@ -346,38 +355,48 @@ unsigned int count = m.count("key");
 
 **Example Code**
 ```c++
-std::set<int> s;
+#include <bits/stdc++.h>
+using namespace std;
 
-//---------------------------------
-// General Operations
-//---------------------------------
+int main()
+{
+    std::set<int> s;
 
-// Insert
-s.insert(20);
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-// Size
-unsigned int size = s.size();
+    // Insert
+    s.insert(20);
+    s.insert(20); // Ignores duplicates
+    s.insert(21);
 
-// Iterate
-for(std::set<int>::iterator it = s.begin(); it != s.end(); it++) {
-    std::cout << *it << std::endl;
+    // Size
+    unsigned int size = s.size();
+
+    // Iterate
+    for (std::set<int>::iterator it = s.begin(); it != s.end(); it++)
+    {
+        std::cout << *it << std::endl;
+    }
+
+    // Remove
+    s.erase(20);
+
+    // Clear
+    s.clear();
+
+    //---------------------------------
+    // Container-Specific Operations
+    //---------------------------------
+
+    // Find if an element exists
+    bool exists = (s.find(20) != s.end());
+
+    // Count the number of elements with a certain value
+    unsigned int count = s.count(20);
+    cout << "Count: " << count << endl;
 }
-
-// Remove
-s.erase(20);
-
-// Clear
-s.clear();
-
-//---------------------------------
-// Container-Specific Operations
-//---------------------------------
-
-// Find if an element exists
-bool exists = (s.find(20) != s.end());
-
-// Count the number of elements with a certain value
-unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
 ### 1.7 Stack `std::stack`
@@ -395,23 +414,36 @@ unsigned int count = s.count(20);
 
 **Example Code**
 ```c++
-std::stack<int> s;
+#include <bits/stdc++.h>
+using namespace std;
 
-//---------------------------------
-// Container-Specific Operations
-//---------------------------------
+int main()
+{
+    // Syntax - stack<dataType> stackName
+    stack<int> s;
 
-// Push
-s.push(20);
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-// Size
-unsigned int size = s.size();
+    // Insert
+    s.push(5);
+    s.push(9);
 
-// Pop
-s.pop();
+    // fetch
+    int top = s.top();
 
-// Top
-int top = s.top();
+    // iterate
+    while (!s.empty())
+    {
+        cout << s.top() << " ";
+        s.pop();
+    }
+
+    // delete
+    s.pop();
+    return 0;
+}
 ```
 -------------------------------------------------------
 ### 1.8 Queue `std::queue`
@@ -426,24 +458,32 @@ int top = s.top();
 
 **Example Code**
 ```c++
-std::queue<int> q;
+#include <bits/stdc++.h>
+using namespace std;
 
-//---------------------------------
-// General Operations
-//---------------------------------
+int main()
+{
+    queue<int> q;
 
-// Insert
-q.push(value);
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-// Access head, tail
-int head = q.front();       // head
-int tail = q.back();        // tail
+    // Insert
+    q.push(23);
+    q.push(18);
 
-// Size
-unsigned int size = q.size();
+    // Access head, tail
+    int head = q.front(); // head
+    int tail = q.back();  // tail
 
-// Remove
-q.pop();
+    // Size
+    unsigned int size = q.size();
+
+    // Remove
+    q.pop();
+    return 0;
+}
 ```
 -------------------------------------------------------
 ### 1.9 Priority Queue `std::priority_queue`
@@ -454,26 +494,46 @@ q.pop();
 
 **Notes**
 * Often implemented as a `std::vector`
+By default, STL priority_queue gives the largest element the highest priority
 
 **Example Code**
 ```c++
-std::priority_queue<int> p;
+#include <bits/stdc++.h>
+using namespace std;
 
-//---------------------------------
-// General Operations
-//---------------------------------
+int main()
+{
+    priority_queue<int> p;
 
-// Insert
-p.push(value);
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-// Access
-int top = p.top();  // 'Top' element
+    // Insert
+    p.push(7);
+    p.push(14);
+    p.push(10);
+    p.push(2);
 
-// Size
-unsigned int size = p.size();
+    // Access
+    int top = p.top(); // 'Top' element - 14 here
 
-// Remove
-p.pop();
+    // Iterate
+    cout << "Priority Queue: ";
+    while (!p.empty())
+    {
+        cout << p.top() << ", ";
+        p.pop();
+    }
+
+    // Size
+    unsigned int size = p.size();
+
+    // Remove
+    // p.pop(); 
+
+    return 0;
+}
 ```
 -------------------------------------------------------
 
