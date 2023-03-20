@@ -34,35 +34,55 @@ std::vector<int> v;
 //---------------------------------
 
 // Size
-unsigned int size = v.size();
+#include<bits/stdc++.h>
+using namespace std;
 
-// Insert head, index, tail
-v.insert(v.begin(), value);             // head
-v.insert(v.begin() + index, value);     // index
-v.push_back(value);                     // tail
+int main() {
 
-// Access head, index, tail
-int head = v.front();       // head
-head = v[0];                // or using array style indexing
+    vector<int> v;
 
-int value = v.at(index);    // index
-value = v[index];           // or using array style indexing
+    //---------------------------------
+    // General Operations
+    //---------------------------------
 
-int tail = v.back();        // tail
-tail = v[v.size() - 1];     // or using array style indexing
+    //Size
+    int size = v.size();
+    
+    //Insert head, index, tail
+    v.insert(v.begin(),7);          //head
+    v.insert(v.begin() + 1,9);      //index - 2 is the index
+    v.push_back(13);                //tail
 
-// Iterate
-for(std::vector<int>::iterator it = v.begin(); it != v.end(); it++) {
-    std::cout << *it << std::endl;
+
+    //access head, index, tail
+    int head = v.front();           //head
+    head = v[0];                    //or using array style indexing
+
+    int index = v.at(index);        //index
+    index = v[index];               //or using array style indexing
+
+    int tail = v.back();            //tail
+    tail = v[v.size() - 1];         //or using array style indexing
+
+
+    //iterate
+    for(vector<int>::iterator it = v.begin(); it <= v.end(); it++) {
+        cout<< *it <<endl;
+    }
+
+    //delete head, index, tail
+    v.erase(v.begin());             //head
+    v.erase(v.begin() + index);     //index
+    v.pop_back();                   //tail
+
+    //clear
+    v.clear();
+
 }
 
-// Remove head, index, tail
-v.erase(v.begin());             // head
-v.erase(v.begin() + index);     // index
-v.pop_back();                   // tail
 
-// Clear
-v.clear();
+
+
 ```
 
 -------------------------------------------------------
@@ -94,36 +114,366 @@ v.clear();
 
 **Example Code**
 ```c++
-std::deque<int> d;
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+    //Syntax - deque<dataType> variable name;
+    deque<int> d;
+
+    //---------------------------------
+    // General Operations
+    //---------------------------------
+
+    // Insert head, index, tail
+    d.push_front(3);                  //head
+    d.insert(d.begin() + 1, 5);       //index
+    d.push_back(7);                   //tail
+
+
+    // Access head, index, tail
+    int head = d.front();            //head
+    head = d[0];                     //or using array style indexing
+
+    int index = d.at(2);             //index
+    index = d[0];                    //or using array style indexing
+
+    int tail = d.back();             //tail
+    tail = d[0];                     //or using array style indexing
+
+    // Size
+    unsigned int size = d.size();
+
+
+    // Iterate
+    for(deque<int>::iterator i = d.begin(); i <= d.end() ; i++) {
+        cout<< *i <<endl;
+    }
+    
+
+    // Remove head, index, tail
+    d.pop_front();                  //head
+    d.erase(d.begin() + 2);         //index
+    d.pop_back();                   //tail
+
+
+    // // Clear
+    // d.clear();
+    return 0;
+}
+```
+-------------------------------------------------------
+-------------------------------------------------------
+### 1.4 List `std::list` and `std::forward_list`
+**Use for**
+* Insertion into the middle/beginning of the list
+* Efficient sorting (pointer swap vs. copying)
+
+**Do not use for**
+* Direct access
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Insert Head  |          `O(1)` |
+| Insert Index |          `O(n)` |
+| Insert Tail  |          `O(1)` |
+| Remove Head  |          `O(1)` |
+| Remove Index |          `O(n)` |
+| Remove Tail  |          `O(1)` |
+| Find Index   |          `O(n)` |
+| Find Object  |          `O(n)` |
+
+**Example Code**
+```c++
+std::list<int> l;
 
 //---------------------------------
 // General Operations
 //---------------------------------
 
 // Insert head, index, tail
-d.push_front(value);                    // head
-d.insert(d.begin() + index, value);     // index
-d.push_back(value);                     // tail
+l.push_front(value);                    // head
+l.insert(l.begin() + index, value);     // index
+l.push_back(value);                     // tail
 
 // Access head, index, tail
-int head = d.front();       // head
-int value = d.at(index);    // index
-int tail = d.back();        // tail
+int head = l.front();                                           // head
+int value = std::next(l.begin(), index);		        // index
+int tail = l.back();                                            // tail
 
 // Size
-unsigned int size = d.size();
+unsigned int size = l.size();
 
 // Iterate
-for(std::deque<int>::iterator it = d.begin(); it != d.end(); it++) {
+for(std::list<int>::iterator it = l.begin(); it != l.end(); it++) {
     std::cout << *it << std::endl;
 }
 
 // Remove head, index, tail
-d.pop_front();                  // head
-d.erase(d.begin() + index);     // index
-d.pop_back();                   // tail
+l.pop_front();                  // head
+l.erase(l.begin() + index);     // index
+l.pop_back();                   // tail
 
 // Clear
-d.clear();
+l.clear();
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Splice: Transfer elements from list to list
+//	splice(iterator pos, list &x)
+//  	splice(iterator pos, list &x, iterator i)
+//  	splice(iterator pos, list &x, iterator first, iterator last)
+l.splice(l.begin() + index, list2);
+
+// Remove: Remove an element by value
+l.remove(value);
+
+// Unique: Remove duplicates
+l.unique();
+
+// Merge: Merge two sorted lists
+l.merge(list2);
+
+// Sort: Sort the list
+l.sort();
+
+// Reverse: Reverse the list order
+l.reverse();
 ```
 -------------------------------------------------------
+### 1.5 Map `std::map` and `std::unordered_map`
+**Use for**
+* Key-value pairs
+* Constant lookups by key
+* Searching if key/value exists
+* Removing duplicates
+* `std::map`
+    * Ordered map
+* `std::unordered_map`
+    * Hash table
+
+**Do not use for**
+* Sorting
+
+**Notes**
+* Typically ordered maps (`std::map`) are slower than unordered maps (`std::unordered_map`)
+* Maps are typically implemented as *binary search trees*
+
+**Time Complexity**
+
+**`std::map`**
+
+| Operation           | Time Complexity |
+|---------------------|-----------------|
+| Insert              |     `O(log(n))` |
+| Access by Key       |     `O(log(n))` |
+| Remove by Key       |     `O(log(n))` |
+| Find/Remove Value   |     `O(log(n))` |
+
+**`std::unordered_map`**
+
+| Operation           | Time Complexity |
+|---------------------|-----------------|
+| Insert              |          `O(1)` |
+| Access by Key       |          `O(1)` |
+| Remove by Key       |          `O(1)` |
+| Find/Remove Value   |              -- |
+
+**Example Code**
+```c++
+std::map<std::string, std::string> m;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+m.insert(std::pair<std::string, std::string>("key", "value"));
+
+// Access by key
+std::string value = m.at("key");
+
+// Size
+unsigned int size = m.size();
+
+// Iterate
+for(std::map<std::string, std::string>::iterator it = m.begin(); it != m.end(); it++) {
+    std::cout << *it << std::endl;
+}
+
+// Remove by key
+m.erase("key");
+
+// Clear
+m.clear();
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Find if an element exists by key
+bool exists = (m.find("key") != m.end());
+
+// Count the number of elements with a certain key
+unsigned int count = m.count("key");
+```
+-------------------------------------------------------
+### 1.6 Set `std::set`
+**Use for**
+* Removing duplicates
+* Ordered dynamic storage
+
+**Do not use for**
+* Simple storage
+* Direct access by index
+
+**Notes**
+* Sets are often implemented with binary search trees
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Insert       |     `O(log(n))` |
+| Remove       |     `O(log(n))` |
+| Find         |     `O(log(n))` |
+
+**Example Code**
+```c++
+std::set<int> s;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+s.insert(20);
+
+// Size
+unsigned int size = s.size();
+
+// Iterate
+for(std::set<int>::iterator it = s.begin(); it != s.end(); it++) {
+    std::cout << *it << std::endl;
+}
+
+// Remove
+s.erase(20);
+
+// Clear
+s.clear();
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Find if an element exists
+bool exists = (s.find(20) != s.end());
+
+// Count the number of elements with a certain value
+unsigned int count = s.count(20);
+```
+-------------------------------------------------------
+### 1.7 Stack `std::stack`
+**Use for**
+* First-In Last-Out operations
+* Reversal of elements
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Push         |          `O(1)` |
+| Pop          |          `O(1)` |
+| Top          |          `O(1)` |
+
+**Example Code**
+```c++
+std::stack<int> s;
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Push
+s.push(20);
+
+// Size
+unsigned int size = s.size();
+
+// Pop
+s.pop();
+
+// Top
+int top = s.top();
+```
+-------------------------------------------------------
+### 1.8 Queue `std::queue`
+**Use for**
+* First-In First-Out operations
+* Ex: Simple online ordering system (first come first served)
+* Ex: Semaphore queue handling
+* Ex: CPU scheduling (FCFS)
+
+**Notes**
+* Often implemented as a `std::deque`
+
+**Example Code**
+```c++
+std::queue<int> q;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+q.push(value);
+
+// Access head, tail
+int head = q.front();       // head
+int tail = q.back();        // tail
+
+// Size
+unsigned int size = q.size();
+
+// Remove
+q.pop();
+```
+-------------------------------------------------------
+### 1.9 Priority Queue `std::priority_queue`
+**Use for**
+* First-In First-Out operations where **priority** overrides arrival time
+* Ex: CPU scheduling (smallest job first, system/user priority)
+* Ex: Medical emergencies (gunshot wound vs. broken arm)
+
+**Notes**
+* Often implemented as a `std::vector`
+
+**Example Code**
+```c++
+std::priority_queue<int> p;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+p.push(value);
+
+// Access
+int top = p.top();  // 'Top' element
+
+// Size
+unsigned int size = p.size();
+
+// Remove
+p.pop();
+```
+-------------------------------------------------------
+
