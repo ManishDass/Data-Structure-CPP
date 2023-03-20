@@ -11,6 +11,3 @@
 
 ### Above combination will ignore all files without extension ###
 
-# Ignore files with extension `.cpp` & `.md`
-*.cpp
-*.md
